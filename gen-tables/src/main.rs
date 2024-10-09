@@ -25,7 +25,7 @@ use std::{error, iter};
 include!("../../src/shared.rs");
 
 impl FromStr for BreakClass {
-    type Err = &'static str;
+    type Err = String;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(match s {
@@ -71,17 +71,23 @@ impl FromStr for BreakClass {
             "JT" => JT,
             "RI" => RI,
             "SA" => SA,
+            "AK" => AK,
+            "AS" => AS,
+            "AP" => AP,
+            "VF" => VF,
+            "VI" => VI,
             "XX" => XX,
-            _ => return Err("Invalid break class"),
+            _ => return Err(format!("Invalid break class: {s}")),
         })
     }
 }
 
-const NUM_CLASSES: usize = 43;
+const NUM_CLASSES: usize = 48;
 static BREAK_CLASS_TABLE: [&str; NUM_CLASSES] = [
     "BK", "CR", "LF", "CM", "NL", "SG", "WJ", "ZW", "GL", "SP", "ZWJ", "B2", "BA", "BB", "HY",
     "CB", "CL", "CP", "EX", "IN", "NS", "OP", "QU", "IS", "NU", "PO", "PR", "SY", "AI", "AL", "CJ",
-    "EB", "EM", "H2", "H3", "HL", "ID", "JL", "JV", "JT", "RI", "SA", "XX",
+    "EB", "EM", "H2", "H3", "HL", "ID", "JL", "JV", "JT", "RI", "SA", "AK", "AS", "AP", "VF", "VI",
+    "XX",
 ];
 
 #[derive(Copy, Clone)]
@@ -808,7 +814,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         r"(?x)^
 (?P<start>[[:xdigit:]]{4,}) # Unicode code point
 (?:\.{2}(?P<end>[[:xdigit:]]{4,}))? # End of range
-;
+\s*;\s*
 (?P<lb>\w{2,3}) # Line_Break property",
     )?;
     let prop_ranges = BufReader::new(File::open("../LineBreak.txt")?)

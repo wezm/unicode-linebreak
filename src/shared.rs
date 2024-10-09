@@ -91,20 +91,34 @@ pub enum BreakClass {
     RegionalIndicator,
     /// Provide a line break opportunity contingent on additional, language-specific context analysis
     ComplexContext,
+    /// Used for scripts that use the Brahmic style of context analysis and have a virama of Indic
+    /// syllabic category Virama or Invisible_Stacker
+    Aksara,
+    /// Indic syllable base no following virama
+    AksaraStart,
+    /// Indic syllabic categories Consonant_Preceding_Repha, Consonant_With_Stacker, and
+    /// Consonant_Prefixed
+    AksaraPrebase,
+    /// Indic syllabic categories Virama and Invisible_Stacker
+    Virama,
+    /// Viramas of Indic syllabic category Pure_Killer in scripts where the final consonant of a
+    /// phonological syllable is expressed as a sequence of a consonant
+    ViramaFinal,
     /// Have as yet unknown line breaking behavior or unassigned code positions
     Unknown,
 }
 
 use BreakClass::{
-    After as BA, Alphabetic as AL, Ambiguous as AI, Before as BB, BeforeAndAfter as B2,
-    CarriageReturn as CR, CloseParenthesis as CP, ClosePunctuation as CL, CombiningMark as CM,
-    ComplexContext as SA, ConditionalJapaneseStarter as CJ, Contingent as CB, EmojiBase as EB,
-    EmojiModifier as EM, Exclamation as EX, HangulLJamo as JL, HangulLvSyllable as H2,
-    HangulLvtSyllable as H3, HangulTJamo as JT, HangulVJamo as JV, HebrewLetter as HL,
-    Hyphen as HY, Ideographic as ID, InfixSeparator as IS, Inseparable as IN, LineFeed as LF,
-    Mandatory as BK, NextLine as NL, NonBreakingGlue as GL, NonStarter as NS, Numeric as NU,
-    OpenPunctuation as OP, Postfix as PO, Prefix as PR, Quotation as QU, RegionalIndicator as RI,
-    Space as SP, Surrogate as SG, Symbol as SY, Unknown as XX, WordJoiner as WJ,
+    After as BA, Aksara as AK, AksaraPrebase as AP, AksaraStart as AS, Alphabetic as AL,
+    Ambiguous as AI, Before as BB, BeforeAndAfter as B2, CarriageReturn as CR,
+    CloseParenthesis as CP, ClosePunctuation as CL, CombiningMark as CM, ComplexContext as SA,
+    ConditionalJapaneseStarter as CJ, Contingent as CB, EmojiBase as EB, EmojiModifier as EM,
+    Exclamation as EX, HangulLJamo as JL, HangulLvSyllable as H2, HangulLvtSyllable as H3,
+    HangulTJamo as JT, HangulVJamo as JV, HebrewLetter as HL, Hyphen as HY, Ideographic as ID,
+    InfixSeparator as IS, Inseparable as IN, LineFeed as LF, Mandatory as BK, NextLine as NL,
+    NonBreakingGlue as GL, NonStarter as NS, Numeric as NU, OpenPunctuation as OP, Postfix as PO,
+    Prefix as PR, Quotation as QU, RegionalIndicator as RI, Space as SP, Surrogate as SG,
+    Symbol as SY, Unknown as XX, Virama as VI, ViramaFinal as VF, WordJoiner as WJ,
     ZeroWidthJoiner as ZWJ, ZeroWidthSpace as ZW,
 };
 
